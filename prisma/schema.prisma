@@ -34,6 +34,7 @@ model Offer {
   user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   name        String
   description String
+  city        City
   location    String
   time        DateTime?
   category    OfferCategory
@@ -87,6 +88,14 @@ enum Interests {
   netflix
   yoga
   marathon
+}
+
+enum City{
+  Kyiv
+  Lviv
+  Odesa
+  Dnipro
+  Kharkiv
 }
 
 enum OfferCategory {
