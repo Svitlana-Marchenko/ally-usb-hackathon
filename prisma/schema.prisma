@@ -14,7 +14,88 @@ datasource db {
 }
 
 model User {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  email String  @unique
-  name  String?
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  email       String    @unique
+  name        String
+  description String
+  university  String?
+  major       String?
+  work        String?
+  instagram   String?
+  telegram    String
+  interests   Interests[] @default([])
+  offers      Offer[]
+  requests    Request[]
+}
+
+model Offer {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String         @db.ObjectId
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  description String
+  location    String
+  time        DateTime?
+  category    OfferCategory
+  link        String?
+  requests    Request[]
+}
+
+model Request {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String   @db.ObjectId
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  offerId String   @db.ObjectId
+  offer   Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+}
+
+enum Interests {
+  reading
+  swimming
+  cooking
+  clubbing
+  sports
+  exhibition
+  photography
+  boxing
+  sushi
+  basketball
+  coffee
+  poetry
+  feminism
+  pilates
+  choir
+  festival
+  broadway
+  surfing
+  dancing
+  art
+  bbq
+  volunteering
+  wine
+  drummer
+  ramen
+  marvel
+  makeup
+  writing
+  band
+  manga
+  ballet
+  baseball
+  hiking
+  comedy
+  netflix
+  yoga
+  marathon
+}
+
+enum OfferCategory {
+  OutdoorAdventures
+  CulturalTreks
+  NightlifeExcursions
+  CafeAndEateryTours
+  ArtisticOutings
+  WorkshopSeries
+  MasterclassSessions
+  LearningTogether
 }
