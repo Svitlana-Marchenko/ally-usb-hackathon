@@ -1,14 +1,22 @@
 import React from 'react';
 import {database} from "@/lib/database";
 import OffersList from "@/app/components/lists/OffersList";
+import {City, OfferCategory} from "@prisma/client";
+import {Input} from "@nextui-org/react";
+import {DateRangePicker} from "@nextui-org/react";
+import {Select, SelectItem} from "@nextui-org/react";
 
 interface OffersPageProps {
     searchParams: {
         title: string;
+        category?: OfferCategory;
+        city?: City;
+        startDate?: Date;
+        endDate?: Date;
     }
 }
 
-const CoursesPage = async ({
+const OffersPage = async ({
                                searchParams
                            }: OffersPageProps) => {
     const offers = await database.offer.findMany({
@@ -17,8 +25,11 @@ const CoursesPage = async ({
                 contains: searchParams.title,
                 mode: 'insensitive'
             },
+            category: searchParams.category ? { equals: searchParams.category } : undefined,
+            location: searchParams.city ? { equals: searchParams.city } : undefined,
             time: {
-                gt: new Date()
+                gte: searchParams.startDate || new Date(),
+                lte: searchParams.endDate || new Date('9999-12-31')
             }
         },
         include: {
@@ -26,12 +37,31 @@ const CoursesPage = async ({
         },
     });
 
+    // const cityOptions = Object.values(City).map(key => ({
+    //     value: key,
+    //     label: key
+    // }));
+
     return (
         <div className={'flex flex-col gap-6 p-6'}>
-            <p>Актуальні пропозиції</p>
+            <p className={"text-center text-xl"}>Актуальні пропозиції</p>
+            <Input type="text" label="Пошук" />
+            <DateRangePicker
+                label="Період активностей"
+                className="max-w-xs"
+            />
+
+            {/*<Select label="Select a City" className="max-w-xs">*/}
+            {/*    {cityOptions.map((city) => (*/}
+            {/*        <SelectItem key={city.value} value={city.value}>*/}
+            {/*            {city.label}*/}
+            {/*        </SelectItem>*/}
+            {/*    ))}*/}
+            {/*</Select>*/}
+
             <OffersList offers={offers}/>
         </div>
     );
 };
 
-export default CoursesPage;
+export default OffersPage;
