@@ -7,7 +7,7 @@ interface OffersListProps {
     offers: Offer [];
     linkOnClick?: string
 }
-const CoursesList = async ({offers, linkOnClick = "/offer/"}: OffersListProps) => {
+const CoursesList = async ({offers, linkOnClick = "/[userId]/"}: OffersListProps) => {
 
     return (
         <div className="flex flex-col items-center w-full px-4" >

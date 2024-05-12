@@ -15,7 +15,7 @@ const CoursesPage = async ({
 
     const userId = "60aeb6b998de9f001fd10121" //todo change it to current user id
 
-    // const offers = await database.offer.findMany({
+    // const offers = await database.[userId].findMany({
     //     where: {
     //         userId: userId
     //     },
@@ -51,7 +51,7 @@ const CoursesPage = async ({
     return (
         <div className={'flex flex-col gap-6 p-6'}>
             <p className={"text-center text-xl"}>Ваші пропозиції</p>
-            <OffersList offers={offers} linkOnClick={"/offer/my/"}/>
+            <OffersList offers={offers} linkOnClick={"/[userId]/my/"}/>
         </div>
     );
 };

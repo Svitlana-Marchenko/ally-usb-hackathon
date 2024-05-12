@@ -6,7 +6,7 @@ import {Interests} from "@prisma/client";
 
 
 const OfferPage = async ({params}: { params: { offerId: string } }) => {
-    // const offer = await database.offer.findUnique({
+    // const [userId] = await database.[userId].findUnique({
     //     where: {
     //         id: params.offerId
     //     },

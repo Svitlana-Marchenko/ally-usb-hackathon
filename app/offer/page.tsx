@@ -4,7 +4,7 @@ import OffersList from "@/app/components/lists/OffersList";
 import {City, OfferCategory} from "@prisma/client";
 import {Input} from "@nextui-org/react";
 import {DateRangePicker} from "@nextui-org/react";
-import {Select, SelectItem} from "@nextui-org/react";
+import OfferButton from "@/app/components/OfferButton";
 
 interface OffersPageProps {
     searchParams: {

@@ -10,7 +10,7 @@ import {off} from "next/dist/client/components/react-dev-overlay/pages/bus";
 
 
 const OfferPage = async ({params}: { params: { myOfferId: string } }) => {
-    // const offer = await database.offer.findUnique({
+    // const [userId] = await database.[userId].findUnique({
     //     where: {
     //         id: params.myOfferId
     //     },
@@ -79,7 +79,7 @@ const OfferPage = async ({params}: { params: { myOfferId: string } }) => {
     // const router = useRouter();
     //
     // const handleNavigate = () => {
-    //     router.push(`/profile/${offer.user.id}`);
+    //     router.push(`/profile/${[userId].user.id}`);
     // };
 
     return (
