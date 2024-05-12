@@ -1,9 +1,20 @@
 'use client'
 import React from 'react';
 import Image from 'next/image'
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, User} from "@nextui-org/react";
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    Link,
+    Button,
+    User,
+    AvatarIcon,
+    Avatar
+} from "@nextui-org/react";
 import {usePathname} from "next/navigation";
 import OfferButton from "@/app/components/OfferButton";
+import SubscriptionButton from "@/app/components/SubscriptionButton";
 
 export default function Header () {
     const pathname = usePathname();
@@ -22,19 +33,20 @@ export default function Header () {
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent as="div" className="items-center" justify="end">
-                <OfferButton/>
+                <div className='space-x-2'>
+                    <OfferButton/>
+                 <SubscriptionButton/>
+                </div>
                 <NavbarItem>
-                    <User
-                        name="Junior Garcia"
-                        description={(
-                            <Link href="profile/1" size="sm">
-                                random@email.com
-                            </Link>
-                        )}
-                        avatarProps={{
-                            src: "https://avatars.githubusercontent.com/u/30373425?v=4"
+                    <Link href="profile/1">
+                    <Avatar
+                        icon={<AvatarIcon />}
+                        classNames={{
+                            base: "bg-gradient-to-br from-[#FFB457] to-[#FF705B]",
+                            icon: "text-black/80",
                         }}
                     />
+                    </Link>
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

@@ -10,7 +10,7 @@ interface OffersListProps {
 const CoursesList = async ({offers, linkOnClick = "/[userId]/"}: OffersListProps) => {
 
     return (
-        <div className="flex flex-col items-center w-full px-4" >
+        <div className="flex flex-col items-center gap-4" >
             {offers.map((offer) => (
                 <OfferCard
                     key={offer.id}

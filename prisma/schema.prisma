@@ -26,6 +26,7 @@ model User {
   interests   Interests[] @default([])
   offers      Offer[]
   requests    Request[]
+  subscriptionPlan SubscriptionPlan @default(free)
 }
 
 model Offer {
@@ -48,6 +49,13 @@ model Request {
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   offerId String   @db.ObjectId
   offer   Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+}
+
+enum SubscriptionPlan {
+  free
+  premium
+  student
+  company
 }
 
 enum Interests {
