@@ -1,6 +1,5 @@
 import React from 'react';
 import {Card, CardBody, CardHeader} from "@nextui-org/card";
-import {database} from "@/lib/database";
 import {Link} from "@nextui-org/react";
 import {Interests} from "@prisma/client";
 
@@ -40,7 +39,7 @@ const OfferPage = async ({params}: { params: { offerId: string } }) => {
 
     //todo add time
 
-    if (offer == null) {
+    if (!offer) {
         return (
             <p>NOT FOUND</p>
         )

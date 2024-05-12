@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from 'next/image'
 import {
     Navbar,
@@ -12,12 +12,36 @@ import {
     AvatarIcon,
     Avatar
 } from "@nextui-org/react";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import OfferButton from "@/app/components/OfferButton";
 import SubscriptionButton from "@/app/components/SubscriptionButton";
+import {DoorOpen} from "lucide-react";
 
 export default function Header () {
+    function getUserIdFromLocalStorage() {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+            const user = JSON.parse(userData);
+            return user.id;
+        }
+        return null;
+    }
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        const userIdFromLocalStorage = getUserIdFromLocalStorage();
+        setUserId(userIdFromLocalStorage);
+    }, []);
     const pathname = usePathname();
+    const router = useRouter();
+
+    function clearLocalStorage() {
+        localStorage.clear();
+        router.push('/login')
+    }
+    if (!userId) {
+        return null;
+    }
     return (
         <Navbar>
             <NavbarBrand>
@@ -33,12 +57,12 @@ export default function Header () {
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent as="div" className="items-center" justify="end">
-                <div className='space-x-2'>
+                <div className='flex flex-row space-x-2'>
                     <OfferButton/>
                  <SubscriptionButton/>
                 </div>
                 <NavbarItem>
-                    <Link href="profile/1">
+                    <Link href={`/profile/${userId}`}>
                     <Avatar
                         icon={<AvatarIcon />}
                         classNames={{
@@ -47,6 +71,11 @@ export default function Header () {
                         }}
                     />
                     </Link>
+                </NavbarItem>
+                <NavbarItem>
+                    <Button isIconOnly variant='light' color='danger' onPress={clearLocalStorage}>
+                        <DoorOpen/>
+                    </Button>
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

@@ -21,7 +21,9 @@ export const Login = () => {
         })
 
         if (response.ok) {
-            router.push('/profile')
+            const userData = await response.json();
+            localStorage.setItem('user', JSON.stringify(userData));
+            router.push('/offer')
         } else {
             alert("Login failed: " + await response.text());
         }

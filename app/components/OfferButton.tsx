@@ -36,7 +36,7 @@ type newOffer ={
     category: OfferCategory;
     link?: string;
 }
-const offerCategories = [
+export const offerCategories = [
     { value: "OutdoorAdventures", name: "Пригоди на відкритому повітрі" },
     { value: "CulturalTreks", name: "Культурні походи" },
     { value: "NightlifeExcursions", name: "Вечірні екскурсії" },
@@ -46,7 +46,7 @@ const offerCategories = [
     { value: "MasterclassSessions", name: "Сесії майстерності" },
     { value: "LearningTogether", name: "Навчання разом" }
 ];
-const cities = [
+export const cities = [
     { value: "Kyiv", name: "Київ" },
     { value: "Lviv", name: "Львів" },
     { value: "Odesa", name: "Одеса" },

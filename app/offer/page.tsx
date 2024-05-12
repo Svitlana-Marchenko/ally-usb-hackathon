@@ -45,12 +45,6 @@ const OffersPage = async ({
     return (
         <div className={'flex flex-col gap-6 p-8'}>
             <p className={"font-medium text-xl"}>Актуальні пропозиції</p>
-            <Input type="text" label="Пошук" />
-            <DateRangePicker
-                label="Період активностей"
-                className="max-w-xs"
-            />
-
             {/*<Select label="Select a City" className="max-w-xs">*/}
             {/*    {cityOptions.map((city) => (*/}
             {/*        <SelectItem key={city.value} value={city.value}>*/}

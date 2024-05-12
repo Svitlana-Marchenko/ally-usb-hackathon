@@ -4,9 +4,12 @@ import React from "react";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
 import {User} from "@prisma/client";
 import { useRouter } from 'next/navigation'
+import {Button} from "@nextui-org/button";
+import axios from "axios";
 
 interface OfferCardProps {
     id: string;
+    userId: string;
     name: string;
     location: string | 'online';
     time: string | null;
@@ -16,7 +19,7 @@ interface OfferCardProps {
     linkOnClick: string
 }
 
-const OfferCard = ({ id, name, location, time, category, link, city, linkOnClick }: OfferCardProps) => {
+const OfferCard = ({ id, userId, name, location, time, category, link, city, linkOnClick }: OfferCardProps) => {
 
     const router = useRouter();
 
@@ -24,6 +27,14 @@ const OfferCard = ({ id, name, location, time, category, link, city, linkOnClick
         router.push(`${linkOnClick}${id}`);
     };
 
+    const createRequest = async () => {
+        try {
+            await axios.post(`/api/${userId}/offer/${id}`);
+            router.refresh();
+        } catch {
+            console.error("cant create offer");
+        }
+    }
     return (
         <div onClick={handleNavigate} style={{cursor: 'pointer'}} className={"w-full"}>
         <Card className="w-full max-w-4xl mx-auto">
@@ -37,11 +48,13 @@ const OfferCard = ({ id, name, location, time, category, link, city, linkOnClick
                 </div>
             </CardHeader>
             <Divider/>
-            <CardBody className="p-4">
-                <p className="text-sm text-gray-500">{location}</p>
-                <p className="text-sm text-gray-500">{city}</p>
+            <CardBody className="p-4 flex flex-row justify-between">
+                <div>
+                    <p className="text-sm text-gray-500">{location}</p>
+                    <p className="text-sm text-gray-500">{city}</p>
+                </div>
+                <Button color='primary' onPress={createRequest}>Відгукнутись</Button>
             </CardBody>
-            <Divider/>
             <CardFooter className="p-4">
                 {link && <Link
                     isExternal
