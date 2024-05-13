@@ -1,43 +1,18 @@
 import React from 'react';
 import {Card, CardBody, CardHeader} from "@nextui-org/card";
 import {Link} from "@nextui-org/react";
-import {Interests} from "@prisma/client";
+import {database} from "@/lib/database";
 
 
 const OfferPage = async ({params}: { params: { offerId: string } }) => {
-    // const [userId] = await database.[userId].findUnique({
-    //     where: {
-    //         id: params.offerId
-    //     },
-    //     include: {
-    //     user: true
-    //     }
-    // })
-
-    const offer = {
-        "id": "60aeb6b998de9f001fd10122",
-        "userId": "60aeb6b998de9f001fd10121",
-        "name": "Hiking Adventure",
-        "description": "Join us for an exciting hiking adventure in the mountains!",
-        "location": "Mountain Trail",
-        "time": "2022-01-20T12:01:30.543Z",
-        "category": "OutdoorAdventures",
-        "link": "fghjk",
-        "user": {
-            "id": "60aeb6b998de9f001fd10121",
-            "email": "example@example.com",
-            "name": "John Doe",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "university": "University of Example",
-            "major": "Computer Science",
-            "work": "Software Engineer",
-            "instagram": "john_doe",
-            "telegram": "@johndoe",
-            "interests": [Interests.reading]
+    const offer = await database.offer.findUnique({
+        where: {
+            id: params.offerId
+        },
+        include: {
+        user: true
         }
-    }
-
-    //todo add time
+    })
 
     if (!offer) {
         return (
@@ -52,7 +27,8 @@ const OfferPage = async ({params}: { params: { offerId: string } }) => {
                 </CardHeader>
                 <CardBody className="flex flex-col items-start p-4 space-y-4">
                     <p className="text-lg">{offer.description}</p>
-                    <p className="text-lg"><span className="font-semibold">Локація:</span> {offer.location}</p>
+                    <p className="text-lg"><span className="font-semibold">Локація:</span> {offer.location}, {offer.city}</p>
+                    {offer.time ? <p className="text-lg"><span className="font-semibold">Дата та час:</span> {new Date(offer.time).toLocaleString()} </p> : ""}
                     <p className="text-lg"><span className="font-semibold">Організатор: </span>
                         <Link
 

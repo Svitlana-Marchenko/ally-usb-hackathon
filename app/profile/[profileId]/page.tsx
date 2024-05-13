@@ -1,33 +1,19 @@
 import React from 'react';
-import {Card, CardBody, CardHeader} from "@nextui-org/card";
+import {Card, CardBody} from "@nextui-org/card";
 import {Avatar} from "@nextui-org/react";
 import {database} from "@/lib/database";
-import {Interests} from "@prisma/client";
 import {Chip} from "@nextui-org/react";
 
 
 const ProfilePage = async ({params}: { params: { profileId: string }}) => {
-    // const user = await database.user.findUnique({
-    //     where: {
-    //         id: params.profileId
-    //     },
-    //     include: {
-    //
-    //     }
-    // })
+    const user = await database.user.findUnique({
+        where: {
+            id: params.profileId
+        },
+        include: {
 
-    const user =  {
-        "id": "60aeb6b998de9f001fd10121",
-            "email": "example@example.com",
-            "name": "John Doe",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "university": "University of Example",
-            "major": "Computer Science",
-            "work": "Software Engineer",
-            "instagram": "john_doe",
-            "telegram": "@johndoe",
-            "interests": [Interests.reading, Interests.baseball]
-    }
+        }
+    })
 
     if(user == null){
         return (
