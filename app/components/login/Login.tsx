@@ -23,6 +23,7 @@ export const Login = () => {
         if (response.ok) {
             const userData = await response.json();
             localStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('userId', JSON.stringify(userData.id))
             router.push('/offer')
         } else {
             alert("Login failed: " + await response.text());

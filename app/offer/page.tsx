@@ -2,9 +2,6 @@ import React from 'react';
 import {database} from "@/lib/database";
 import OffersList from "@/app/components/lists/OffersList";
 import {City, OfferCategory} from "@prisma/client";
-import {Input} from "@nextui-org/react";
-import {DateRangePicker} from "@nextui-org/react";
-import OfferButton from "@/app/components/OfferButton";
 
 interface OffersPageProps {
     searchParams: {
@@ -37,22 +34,9 @@ const OffersPage = async ({
         },
     });
 
-    // const cityOptions = Object.values(City).map(key => ({
-    //     value: key,
-    //     label: key
-    // }));
-
     return (
         <div className={'flex flex-col gap-6 p-8'}>
             <p className={"font-medium text-xl"}>Актуальні пропозиції</p>
-            {/*<Select label="Select a City" className="max-w-xs">*/}
-            {/*    {cityOptions.map((city) => (*/}
-            {/*        <SelectItem key={city.value} value={city.value}>*/}
-            {/*            {city.label}*/}
-            {/*        </SelectItem>*/}
-            {/*    ))}*/}
-            {/*</Select>*/}
-
             <OffersList offers={offers}/>
         </div>
     );

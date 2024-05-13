@@ -1,8 +1,7 @@
 'use client'
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
-import {User} from "@prisma/client";
 import { useRouter } from 'next/navigation'
 import {Button} from "@nextui-org/button";
 import axios from "axios";
@@ -17,11 +16,22 @@ interface OfferCardProps {
     link: string | null;
     city: string;
     linkOnClick: string
+    requestButton: boolean
 }
 
-const OfferCard = ({ id, userId, name, location, time, category, link, city, linkOnClick }: OfferCardProps) => {
+const OfferCard = ({ id, userId, name, location, time, category, link, city, linkOnClick, requestButton }: OfferCardProps) => {
 
     const router = useRouter();
+
+    const [currentId, setCurrentId] = useState(null)
+
+    useEffect(() => {
+        // @ts-ignore
+        const currentUserId : string = localStorage.getItem("userId") || null
+        // @ts-ignore
+        setCurrentId(currentUserId)
+    }, []);
+
 
     const handleNavigate = () => {
         router.push(`${linkOnClick}${id}`);
@@ -53,7 +63,7 @@ const OfferCard = ({ id, userId, name, location, time, category, link, city, lin
                     <p className="text-sm text-gray-500">{location}</p>
                     <p className="text-sm text-gray-500">{city}</p>
                 </div>
-                <Button color='primary' onPress={createRequest}>Відгукнутись</Button>
+                {requestButton && <Button color='primary' onPress={createRequest}>Відгукнутись</Button>}
             </CardBody>
             <CardFooter className="p-4">
                 {link && <Link
